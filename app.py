@@ -29,14 +29,12 @@ def upload():
             print(file)
             temp_filename = secure_filename(file.filename).split('.')
             filename = temp_filename[0] + time.strftime("%Y%m%d%H%M%S") + '.' + temp_filename[1]
-            print(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return {'message': '/uploads/' + filename}, 200
     return 'success 1', 200
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    print('ssssssssssssssssssssss')
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/delete/uploads/<filename>',  methods=['DELETE'])
